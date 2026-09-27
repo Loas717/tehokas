@@ -834,6 +834,9 @@ input:where([type='file']):focus {
   height: -moz-fit-content;
   height: fit-content;
 }
+.min-h-\[200px\] {
+  min-height: 200px;
+}
 .min-h-screen {
   min-height: 100vh;
 }
@@ -901,6 +904,9 @@ input:where([type='file']):focus {
 .cursor-default {
   cursor: default;
 }
+.cursor-grab {
+  cursor: grab;
+}
 .list-inside {
   list-style-position: inside;
 }
@@ -927,6 +933,15 @@ input:where([type='file']):focus {
 }
 .justify-between {
   justify-content: space-between;
+}
+.gap-2 {
+  gap: 0.5rem;
+}
+.gap-3 {
+  gap: 0.75rem;
+}
+.gap-4 {
+  gap: 1rem;
 }
 .gap-6 {
   gap: 1.5rem;
@@ -1320,6 +1335,11 @@ input:where([type='file']):focus {
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   transition-duration: 150ms;
 }
+.transition-shadow {
+  transition-property: box-shadow;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+}
 .duration-150 {
   transition-duration: 150ms;
 }
@@ -1376,6 +1396,11 @@ input:where([type='file']):focus {
 }
 .hover\:underline:hover {
   text-decoration-line: underline;
+}
+.hover\:shadow-md:hover {
+  --tw-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  --tw-shadow-colored: 0 4px 6px -1px var(--tw-shadow-color), 0 2px 4px -2px var(--tw-shadow-color);
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
 }
 .focus\:z-10:focus {
   z-index: 10;
@@ -1440,6 +1465,9 @@ input:where([type='file']):focus {
 .focus\:ring-opacity-50:focus {
   --tw-ring-opacity: 0.5;
 }
+.active\:cursor-grabbing:active {
+  cursor: grabbing;
+}
 .active\:bg-gray-100:active {
   --tw-bg-opacity: 1;
   background-color: rgb(243 244 246 / var(--tw-bg-opacity, 1));
@@ -1499,6 +1527,10 @@ input:where([type='file']):focus {
     flex: 1 1 0%;
   }
 
+  .sm\:flex-row {
+    flex-direction: row;
+  }
+
   .sm\:items-center {
     align-items: center;
   }
@@ -1544,6 +1576,10 @@ input:where([type='file']):focus {
 
   .md\:grid-cols-3 {
     grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .md\:grid-cols-4 {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
   }
 
   .md\:border-l {

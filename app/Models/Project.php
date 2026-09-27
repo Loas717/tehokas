@@ -19,7 +19,7 @@ class Project extends Model
     {
         $totalTasks = $this->tasks()->count();
         
-        if ($totalTasks === 0) {
+        if ($totalTasks == 0) {
             return 'Normal';
         }
 

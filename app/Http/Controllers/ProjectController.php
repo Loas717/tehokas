@@ -3,16 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\Models\Project;
+use Illuminate\Http\Request;
 use Inertia\Inertia;
 
 class ProjectController extends Controller
 {
     public function index()
     {
-        // Carrega os projetos junto com as tarefas
         $projects = Project::with('tasks')->get();
 
-        // O Inertia::render recebe o nome do componente (ex: Vue/React) e as propriedades
         return Inertia::render('Projects/Index', [
             'projects' => $projects
         ]);
@@ -25,5 +24,34 @@ class ProjectController extends Controller
         return Inertia::render('Projects/Show', [
             'project' => $project
         ]);
+    }
+
+    public function store(Request $request)
+    {
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+        ]);
+
+        Project::create($validated);
+
+        return redirect()->route('projects.index');
+    }
+
+    public function update(Request $request, Project $project)
+    {
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+        ]);
+
+        $project->update($validated);
+
+        return redirect()->back();
+    }
+
+    public function destroy(Project $project)
+    {
+        $project->delete();
+
+        return redirect()->route('projects.index');
     }
 }

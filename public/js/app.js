@@ -2551,7 +2551,7 @@ function Login(_ref) {
   };
   var submit = function submit(e) {
     e.preventDefault();
-    post(route('login'));
+    post('/login');
   };
   return /*#__PURE__*/(0,react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxDEV)(_Layouts_Guest__WEBPACK_IMPORTED_MODULE_3__["default"], {
     children: [/*#__PURE__*/(0,react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxDEV)(_inertiajs_inertia_react__WEBPACK_IMPORTED_MODULE_7__.Head, {
@@ -2605,7 +2605,7 @@ function Login(_ref) {
       }, void 0, false), /*#__PURE__*/(0,react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxDEV)("div", {
         className: "flex items-center justify-end mt-4",
         children: [canResetPassword && /*#__PURE__*/(0,react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxDEV)(_inertiajs_inertia_react__WEBPACK_IMPORTED_MODULE_7__.Link, {
-          href: route('password.request'),
+          href: "/forgot-password",
           className: "underline text-sm text-gray-600 hover:text-gray-900",
           children: "Forgot your password?"
         }, void 0, false), /*#__PURE__*/(0,react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxDEV)(_Components_Button__WEBPACK_IMPORTED_MODULE_1__["default"], {
@@ -2939,37 +2939,113 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var _inertiajs_inertia_react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @inertiajs/inertia-react */ "./node_modules/@inertiajs/inertia-react/dist/index.js");
-/* harmony import */ var react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react/jsx-dev-runtime */ "./node_modules/react/jsx-dev-runtime.js");
+/* harmony import */ var _inertiajs_inertia__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @inertiajs/inertia */ "./node_modules/@inertiajs/inertia/dist/index.js");
+/* harmony import */ var react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react/jsx-dev-runtime */ "./node_modules/react/jsx-dev-runtime.js");
+function _slicedToArray(r, e) { return _arrayWithHoles(r) || _iterableToArrayLimit(r, e) || _unsupportedIterableToArray(r, e) || _nonIterableRest(); }
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+function _unsupportedIterableToArray(r, a) { if (r) { if ("string" == typeof r) return _arrayLikeToArray(r, a); var t = {}.toString.call(r).slice(8, -1); return "Object" === t && r.constructor && (t = r.constructor.name), "Map" === t || "Set" === t ? Array.from(r) : "Arguments" === t || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t) ? _arrayLikeToArray(r, a) : void 0; } }
+function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length); for (var e = 0, n = Array(a); e < a; e++) n[e] = r[e]; return n; }
+function _iterableToArrayLimit(r, l) { var t = null == r ? null : "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"]; if (null != t) { var e, n, i, u, a = [], f = !0, o = !1; try { if (i = (t = t.call(r)).next, 0 === l) { if (Object(t) !== t) return; f = !1; } else for (; !(f = (e = i.call(t)).done) && (a.push(e.value), a.length !== l); f = !0); } catch (r) { o = !0, n = r; } finally { try { if (!f && null != t["return"] && (u = t["return"](), Object(u) !== u)) return; } finally { if (o) throw n; } } return a; } }
+function _arrayWithHoles(r) { if (Array.isArray(r)) return r; }
+
 
 
 
 function Index(_ref) {
   var projects = _ref.projects;
-  return /*#__PURE__*/(0,react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxDEV)("div", {
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(''),
+    _useState2 = _slicedToArray(_useState, 2),
+    newProject = _useState2[0],
+    setNewProject = _useState2[1];
+  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null),
+    _useState4 = _slicedToArray(_useState3, 2),
+    editingProject = _useState4[0],
+    setEditingProject = _useState4[1];
+  var submitProject = function submitProject(e) {
+    e.preventDefault();
+    var url = editingProject ? "/projects/".concat(editingProject.id) : '/projects';
+    var method = editingProject ? 'put' : 'post';
+    _inertiajs_inertia__WEBPACK_IMPORTED_MODULE_2__.Inertia[method](url, {
+      name: newProject
+    }, {
+      onSuccess: function onSuccess() {
+        setNewProject('');
+        setEditingProject(null);
+      }
+    });
+  };
+  var deleteProject = function deleteProject(project) {
+    if (window.confirm("Excluir o projeto \"".concat(project.name, "\" e todas as suas tarefas?"))) {
+      _inertiajs_inertia__WEBPACK_IMPORTED_MODULE_2__.Inertia["delete"]("/projects/".concat(project.id));
+    }
+  };
+  return /*#__PURE__*/(0,react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxDEV)("div", {
     className: "min-h-screen bg-gray-100 p-8",
-    children: /*#__PURE__*/(0,react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxDEV)("div", {
+    children: /*#__PURE__*/(0,react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxDEV)("div", {
       className: "max-w-6xl mx-auto",
-      children: [/*#__PURE__*/(0,react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxDEV)("h1", {
+      children: [/*#__PURE__*/(0,react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxDEV)("h1", {
         className: "text-3xl font-bold text-gray-800 mb-6",
         children: "Dashboard de Projetos"
-      }, void 0, false), /*#__PURE__*/(0,react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxDEV)("div", {
+      }, void 0, false), /*#__PURE__*/(0,react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxDEV)("form", {
+        onSubmit: submitProject,
+        className: "bg-white rounded-lg shadow p-6 mb-8 flex flex-col sm:flex-row gap-3",
+        children: [/*#__PURE__*/(0,react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxDEV)("input", {
+          required: true,
+          value: newProject,
+          onChange: function onChange(e) {
+            return setNewProject(e.target.value);
+          },
+          placeholder: "Nome do projeto",
+          className: "border-gray-300 rounded flex-1"
+        }, void 0, false), /*#__PURE__*/(0,react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxDEV)("button", {
+          type: "submit",
+          className: "bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700",
+          children: editingProject ? 'Salvar nome' : 'Criar projeto'
+        }, void 0, false), editingProject && /*#__PURE__*/(0,react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxDEV)("button", {
+          type: "button",
+          onClick: function onClick() {
+            setEditingProject(null);
+            setNewProject('');
+          },
+          className: "border border-gray-300 px-4 py-2 rounded",
+          children: "Cancelar"
+        }, void 0, false)]
+      }, void 0, true), /*#__PURE__*/(0,react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxDEV)("div", {
         className: "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6",
         children: projects.map(function (project) {
-          return /*#__PURE__*/(0,react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxDEV)("div", {
+          return /*#__PURE__*/(0,react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxDEV)("div", {
             className: "bg-white p-6 rounded-lg shadow-md border-t-4 border-blue-500",
-            children: [/*#__PURE__*/(0,react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxDEV)("h2", {
+            children: [/*#__PURE__*/(0,react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxDEV)("h2", {
               className: "text-xl font-semibold mb-2",
               children: project.name
-            }, void 0, false), /*#__PURE__*/(0,react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxDEV)("div", {
+            }, void 0, false), /*#__PURE__*/(0,react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxDEV)("div", {
+              className: "flex gap-3 mb-4 text-sm",
+              children: [/*#__PURE__*/(0,react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxDEV)("button", {
+                type: "button",
+                onClick: function onClick() {
+                  setEditingProject(project);
+                  setNewProject(project.name);
+                },
+                className: "text-blue-600 hover:underline",
+                children: "Renomear"
+              }, void 0, false), /*#__PURE__*/(0,react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxDEV)("button", {
+                type: "button",
+                onClick: function onClick() {
+                  return deleteProject(project);
+                },
+                className: "text-red-600 hover:underline",
+                children: "Excluir"
+              }, void 0, false)]
+            }, void 0, true), /*#__PURE__*/(0,react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxDEV)("div", {
               className: "mb-4",
-              children: /*#__PURE__*/(0,react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxDEV)("span", {
+              children: /*#__PURE__*/(0,react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxDEV)("span", {
                 className: "px-3 py-1 text-sm font-bold rounded-full ".concat(project.health_status === 'Em Alerta' ? 'bg-red-100 text-red-700' : 'bg-green-100 text-green-700'),
                 children: project.health_status
               }, void 0, false)
-            }, void 0, false), /*#__PURE__*/(0,react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxDEV)("div", {
+            }, void 0, false), /*#__PURE__*/(0,react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxDEV)("div", {
               className: "text-gray-600 text-sm mb-4",
               children: ["Total de tarefas: ", project.tasks.length]
-            }, void 0, true), /*#__PURE__*/(0,react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxDEV)(_inertiajs_inertia_react__WEBPACK_IMPORTED_MODULE_1__.Link, {
+            }, void 0, true), /*#__PURE__*/(0,react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxDEV)(_inertiajs_inertia_react__WEBPACK_IMPORTED_MODULE_1__.Link, {
               href: "/projects/".concat(project.id),
               className: "inline-block bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition",
               children: "Ver Kanban"
@@ -2998,6 +3074,18 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _inertiajs_inertia_react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @inertiajs/inertia-react */ "./node_modules/@inertiajs/inertia-react/dist/index.js");
 /* harmony import */ var _inertiajs_inertia__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @inertiajs/inertia */ "./node_modules/@inertiajs/inertia/dist/index.js");
 /* harmony import */ var react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react/jsx-dev-runtime */ "./node_modules/react/jsx-dev-runtime.js");
+function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
+function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
+function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { _defineProperty(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
+function _defineProperty(e, r, t) { return (r = _toPropertyKey(r)) in e ? Object.defineProperty(e, r, { value: t, enumerable: !0, configurable: !0, writable: !0 }) : e[r] = t, e; }
+function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : i + ""; }
+function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
+function _slicedToArray(r, e) { return _arrayWithHoles(r) || _iterableToArrayLimit(r, e) || _unsupportedIterableToArray(r, e) || _nonIterableRest(); }
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+function _unsupportedIterableToArray(r, a) { if (r) { if ("string" == typeof r) return _arrayLikeToArray(r, a); var t = {}.toString.call(r).slice(8, -1); return "Object" === t && r.constructor && (t = r.constructor.name), "Map" === t || "Set" === t ? Array.from(r) : "Arguments" === t || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t) ? _arrayLikeToArray(r, a) : void 0; } }
+function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length); for (var e = 0, n = Array(a); e < a; e++) n[e] = r[e]; return n; }
+function _iterableToArrayLimit(r, l) { var t = null == r ? null : "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"]; if (null != t) { var e, n, i, u, a = [], f = !0, o = !1; try { if (i = (t = t.call(r)).next, 0 === l) { if (Object(t) !== t) return; f = !1; } else for (; !(f = (e = i.call(t)).done) && (a.push(e.value), a.length !== l); f = !0); } catch (r) { o = !0, n = r; } finally { try { if (!f && null != t["return"] && (u = t["return"](), Object(u) !== u)) return; } finally { if (o) throw n; } } return a; } }
+function _arrayWithHoles(r) { if (Array.isArray(r)) return r; }
 
 
 
@@ -3005,12 +3093,80 @@ __webpack_require__.r(__webpack_exports__);
 function Show(_ref) {
   var project = _ref.project;
   var columns = ['Pendente', 'Em Andamento', 'Concluída'];
+  var emptyTask = {
+    title: '',
+    description: '',
+    deadline: '',
+    status: 'Pendente'
+  };
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(emptyTask),
+    _useState2 = _slicedToArray(_useState, 2),
+    taskForm = _useState2[0],
+    setTaskForm = _useState2[1];
+  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null),
+    _useState4 = _slicedToArray(_useState3, 2),
+    editingTask = _useState4[0],
+    setEditingTask = _useState4[1];
+  var submitTask = function submitTask(e) {
+    e.preventDefault();
+    var url = editingTask ? "/tasks/".concat(editingTask.id) : "/projects/".concat(project.id, "/tasks");
+    var method = editingTask ? 'put' : 'post';
+    _inertiajs_inertia__WEBPACK_IMPORTED_MODULE_2__.Inertia[method](url, taskForm, {
+      preserveScroll: true,
+      onSuccess: function onSuccess() {
+        setTaskForm(emptyTask);
+        setEditingTask(null);
+      }
+    });
+  };
+  var startEditing = function startEditing(task) {
+    setEditingTask(task);
+    setTaskForm({
+      title: task.title,
+      description: task.description || '',
+      deadline: task.deadline,
+      status: task.status
+    });
+  };
+  var deleteTask = function deleteTask(task) {
+    if (window.confirm("Excluir a tarefa \"".concat(task.title, "\"?"))) {
+      _inertiajs_inertia__WEBPACK_IMPORTED_MODULE_2__.Inertia["delete"]("/tasks/".concat(task.id), {
+        preserveScroll: true
+      });
+      if (editingTask && editingTask.id === task.id) {
+        setEditingTask(null);
+        setTaskForm(emptyTask);
+      }
+    }
+  };
   var handleStatusChange = function handleStatusChange(taskId, newStatus) {
     _inertiajs_inertia__WEBPACK_IMPORTED_MODULE_2__.Inertia.put("/tasks/".concat(taskId, "/status"), {
       status: newStatus
     }, {
       preserveScroll: true
     });
+  };
+  var handleDragStart = function handleDragStart(e, taskId) {
+    e.dataTransfer.setData('taskId', taskId);
+  };
+  var handleDragOver = function handleDragOver(e) {
+    e.preventDefault();
+  };
+  var handleDrop = function handleDrop(e, newStatus) {
+    var taskId = e.dataTransfer.getData('taskId');
+    if (taskId) {
+      handleStatusChange(taskId, newStatus);
+    }
+  };
+  var formatarData = function formatarData(dataString) {
+    if (!dataString) return '';
+    var dataApenas = dataString.split('T')[0];
+    var _dataApenas$split = dataApenas.split('-'),
+      _dataApenas$split2 = _slicedToArray(_dataApenas$split, 3),
+      ano = _dataApenas$split2[0],
+      mes = _dataApenas$split2[1],
+      dia = _dataApenas$split2[2];
+    return "".concat(dia, "/").concat(mes, "/").concat(ano);
   };
   return /*#__PURE__*/(0,react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxDEV)("div", {
     className: "min-h-screen bg-gray-100 p-8",
@@ -3031,11 +3187,83 @@ function Show(_ref) {
           className: "px-4 py-2 font-bold rounded-full ".concat(project.health_status === 'Em Alerta' ? 'bg-red-100 text-red-700' : 'bg-green-100 text-green-700'),
           children: ["Status: ", project.health_status]
         }, void 0, true)]
+      }, void 0, true), /*#__PURE__*/(0,react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxDEV)("form", {
+        onSubmit: submitTask,
+        className: "bg-white rounded-lg shadow p-6 mb-8",
+        children: [/*#__PURE__*/(0,react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxDEV)("h2", {
+          className: "text-xl font-bold text-gray-800 mb-4",
+          children: editingTask ? 'Editar tarefa' : 'Nova tarefa'
+        }, void 0, false), /*#__PURE__*/(0,react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxDEV)("div", {
+          className: "grid grid-cols-1 md:grid-cols-4 gap-4",
+          children: [/*#__PURE__*/(0,react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxDEV)("input", {
+            required: true,
+            value: taskForm.title,
+            onChange: function onChange(e) {
+              return setTaskForm(_objectSpread(_objectSpread({}, taskForm), {}, {
+                title: e.target.value
+              }));
+            },
+            placeholder: "Nome da tarefa",
+            className: "border-gray-300 rounded"
+          }, void 0, false), /*#__PURE__*/(0,react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxDEV)("input", {
+            value: taskForm.description,
+            onChange: function onChange(e) {
+              return setTaskForm(_objectSpread(_objectSpread({}, taskForm), {}, {
+                description: e.target.value
+              }));
+            },
+            placeholder: "Descri\xE7\xE3o",
+            className: "border-gray-300 rounded"
+          }, void 0, false), /*#__PURE__*/(0,react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxDEV)("input", {
+            required: true,
+            type: "date",
+            value: taskForm.deadline,
+            onChange: function onChange(e) {
+              return setTaskForm(_objectSpread(_objectSpread({}, taskForm), {}, {
+                deadline: e.target.value
+              }));
+            },
+            className: "border-gray-300 rounded"
+          }, void 0, false), /*#__PURE__*/(0,react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxDEV)("select", {
+            value: taskForm.status,
+            onChange: function onChange(e) {
+              return setTaskForm(_objectSpread(_objectSpread({}, taskForm), {}, {
+                status: e.target.value
+              }));
+            },
+            className: "border-gray-300 rounded",
+            children: columns.map(function (col) {
+              return /*#__PURE__*/(0,react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxDEV)("option", {
+                value: col,
+                children: col
+              }, col, false);
+            })
+          }, void 0, false)]
+        }, void 0, true), /*#__PURE__*/(0,react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxDEV)("div", {
+          className: "mt-4 flex gap-3",
+          children: [/*#__PURE__*/(0,react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxDEV)("button", {
+            type: "submit",
+            className: "bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700",
+            children: editingTask ? 'Salvar alterações' : 'Criar tarefa'
+          }, void 0, false), editingTask && /*#__PURE__*/(0,react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxDEV)("button", {
+            type: "button",
+            onClick: function onClick() {
+              setEditingTask(null);
+              setTaskForm(emptyTask);
+            },
+            className: "border border-gray-300 px-4 py-2 rounded",
+            children: "Cancelar"
+          }, void 0, false)]
+        }, void 0, true)]
       }, void 0, true), /*#__PURE__*/(0,react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxDEV)("div", {
         className: "grid grid-cols-1 md:grid-cols-3 gap-6",
         children: columns.map(function (status) {
           return /*#__PURE__*/(0,react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxDEV)("div", {
-            className: "bg-gray-200 rounded-lg p-4 h-fit",
+            className: "bg-gray-200 rounded-lg p-4 h-fit min-h-[200px]",
+            onDragOver: handleDragOver,
+            onDrop: function onDrop(e) {
+              return handleDrop(e, status);
+            },
             children: [/*#__PURE__*/(0,react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxDEV)("h2", {
               className: "text-lg font-bold text-gray-700 mb-4 uppercase text-center border-b-2 border-gray-300 pb-2",
               children: status
@@ -3045,18 +3273,42 @@ function Show(_ref) {
                 return t.status === status;
               }).map(function (task) {
                 return /*#__PURE__*/(0,react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxDEV)("div", {
-                  className: "bg-white p-4 rounded shadow border-l-4 border-blue-500",
-                  children: [/*#__PURE__*/(0,react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxDEV)("h3", {
-                    className: "font-semibold text-gray-800",
-                    children: task.title
-                  }, void 0, false), /*#__PURE__*/(0,react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxDEV)("p", {
+                  draggable: true,
+                  onDragStart: function onDragStart(e) {
+                    return handleDragStart(e, task.id);
+                  },
+                  className: "bg-white p-4 rounded shadow border-l-4 border-blue-500 cursor-grab active:cursor-grabbing hover:shadow-md transition-shadow",
+                  children: [/*#__PURE__*/(0,react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxDEV)("div", {
+                    className: "flex justify-between gap-2",
+                    children: [/*#__PURE__*/(0,react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxDEV)("h3", {
+                      className: "font-semibold text-gray-800",
+                      children: task.title
+                    }, void 0, false), /*#__PURE__*/(0,react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxDEV)("div", {
+                      className: "flex gap-2 text-sm",
+                      children: [/*#__PURE__*/(0,react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxDEV)("button", {
+                        type: "button",
+                        onClick: function onClick() {
+                          return startEditing(task);
+                        },
+                        className: "text-blue-600 hover:underline",
+                        children: "Editar"
+                      }, void 0, false), /*#__PURE__*/(0,react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxDEV)("button", {
+                        type: "button",
+                        onClick: function onClick() {
+                          return deleteTask(task);
+                        },
+                        className: "text-red-600 hover:underline",
+                        children: "Excluir"
+                      }, void 0, false)]
+                    }, void 0, true)]
+                  }, void 0, true), /*#__PURE__*/(0,react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxDEV)("p", {
                     className: "text-sm text-gray-600 mt-1",
                     children: task.description
                   }, void 0, false), /*#__PURE__*/(0,react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxDEV)("div", {
                     className: "mt-3 pt-3 border-t text-sm flex justify-between items-center",
                     children: [/*#__PURE__*/(0,react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxDEV)("span", {
                       className: "text-gray-500",
-                      children: ["Prazo: ", new Date(task.deadline).toLocaleDateString('pt-BR')]
+                      children: ["Prazo: ", formatarData(task.deadline)]
                     }, void 0, true), /*#__PURE__*/(0,react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxDEV)("select", {
                       value: task.status,
                       onChange: function onChange(e) {
