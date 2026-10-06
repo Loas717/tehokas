@@ -31,7 +31,7 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::get('/', function () {
-    return redirect()->route('login');
+    return redirect()->route('projects.index');
 });
 
     Route::get('/projects', [ProjectController::class, 'index'])->name('projects.index');
